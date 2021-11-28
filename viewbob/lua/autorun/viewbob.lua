@@ -84,6 +84,7 @@ end
 local function damage_viewbob(target, dmginfo)
 	if target:IsPlayer() then
 		if GetConVarNumber("viewbob_enable") != 1 || GetConVarNumber("viewbob_damage_enable") != 1 then return end
+		if target:GetMoveType() == MOVETYPE_NOCLIP then return end
 		if equipped_tool(target) then return end
 		multiplier_damage_convar = GetConVarNumber("viewbob_damage_multiplier")
 		-- OW HELL I GOT HIT >:(
@@ -119,7 +120,7 @@ local function idle_viewbob(ply, origin, angles, fov, znear, zfar)
 		lerped_bob_the_builder = LerpAngle(0.1, lerped_bob_the_builder, bob_the_builder)
 	end
 
-	if GetConVarNumber("viewbob_idle_enable") == 1 && !equipped_tool(ply) then
+	if GetConVarNumber("viewbob_idle_enable") == 1 && !equipped_tool(ply) && ply:GetMoveType() != MOVETYPE_NOCLIP then
 		view.angles = view.angles + lerped_bob_the_builder
 	else
 		view.angles = view.angles
@@ -133,6 +134,7 @@ local function crouch_uncrouch_viewbob()
 	local crouch_mult = GetConVarNumber("viewbob_crouch_multiplier")
 	for i, ply in ipairs(player.GetAll()) do
 		if equipped_tool(ply) then return end
+		if ply:GetMoveType() == MOVETYPE_NOCLIP then return end
 	    if ply:KeyPressed(IN_DUCK) then
 	    	ply:ViewPunch(Angle(4 * crouch_mult, 
 	    						math.random(-1, 1) * crouch_mult, 
