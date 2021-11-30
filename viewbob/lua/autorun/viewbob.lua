@@ -149,6 +149,7 @@ end
 
 hook.Add("EntityTakeDamage", "damage_viewbob", damage_viewbob)
 hook.Add("PlayerFootstep", "walk_viewbob", walk_viewbob)
+hook.Remove("OnPlayerHitGround", "voskydive_falldamage_hook")
 hook.Add("OnPlayerHitGround", "land_viewbob", land_viewbob)
 hook.Add("CalcView", "idle_viewbob", idle_viewbob)
 hook.Add("Think", "crouch_uncrouch_viewbob", crouch_uncrouch_viewbob)
